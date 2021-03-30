@@ -17,32 +17,13 @@ public class Path
         };
     }
 
-    public Vector2 this[int i]
-    {
-        get
-        {
-            return points[i];
-        }
-    }
-
-    public int NumPoints
-    {
-        get
-        {
-            return points.Count;
-        }
-    }
-
-    public int NumSegments
-    {
-        get
-        {
-            return (points.Count - 4) / 3 + 1;
-        }
-    }
+    public Vector2 this[int i] => points[i];
+    public int NumPoints =>  points.Count;
+    public int NumSegments => (points.Count - 4) / 3 + 1;
 
     public void AddSegment(Vector2 anchorPos)
     {
+        // сначала правый tangent для последнего anchor, потом левый для нового и новый anchor 
         points.Add(points[points.Count - 1] * 2 - points[points.Count - 2]);
         points.Add((points[points.Count - 1] + anchorPos) * .5f);
         points.Add(anchorPos);
@@ -50,6 +31,7 @@ public class Path
 
     public Vector2[] GetPointsInSegment(int i)
     {
+        // получаем точки сегмента благодоря ряду * 3
         return new Vector2[]
         {
             points[i * 3],
@@ -63,13 +45,16 @@ public class Path
     {
         Vector2 deltaMove = pos - points[i];
         points[i] = pos;
-
+        
+        // если anchor
         if (i % 3 == 0)
         {
+            // двигаем правый tangent на то же расстояние
             if (i + 1 < points.Count)
             {
                 points[i + 1] += deltaMove;
             }
+            // двигаем левый tangent на то же расстояние
             if (i - 1 >= 0)
             {
                 points[i - 1] += deltaMove;
@@ -78,13 +63,18 @@ public class Path
         else
         {
             bool nextPointIsAnchor = (i + 1) % 3 == 0;
+            // если следующий это anchor то соседний тангент через 2, если нет то назад на 2
             int correspondingControlIndex = (nextPointIsAnchor) ? i + 2 : i - 2;
+            // получает anchor
             int anchorIndex = (nextPointIsAnchor) ? i + 1 : i - 1;
 
             if (correspondingControlIndex >= 0 && correspondingControlIndex < points.Count)
             {
+                // получаем расстояние соседнего тангента до anchor'a
                 float dst = (points[anchorIndex] - points[correspondingControlIndex]).magnitude;
+                // получаем вектор направления от текущего тангента до anchor'a
                 Vector2 dir = (points[anchorIndex] - pos).normalized;
+                // применяем на соседний тангент
                 points[correspondingControlIndex] = points[anchorIndex] + dir * dst;
             }
         }
