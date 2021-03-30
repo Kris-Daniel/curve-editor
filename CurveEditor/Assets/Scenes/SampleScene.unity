@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 883995953}
   - component: {fileID: 883995952}
-  - component: {fileID: 883995954}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -157,9 +156,9 @@ MonoBehaviour:
     points:
     - {x: -0.888, y: 1.328}
     - {x: -0.388, y: 1.828}
-    - {x: 2.1084652, y: 0.83735347}
+    - {x: 2.136524, y: 0.78123605}
     - {x: 2.6084652, y: 1.3373535}
-    - {x: 3.1084652, y: 1.8373535}
+    - {x: 3.0659947, y: 1.8764887}
     - {x: 3.5218377, y: 1.6554604}
     - {x: 3.9352102, y: 1.4735671}
 --- !u!4 &883995953
@@ -176,19 +175,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &883995954
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883995951}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
