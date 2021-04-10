@@ -6,7 +6,25 @@ public class PathEditor : Editor
 {
     PathCreator creator;
     Path path;
-    
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        
+        if (GUILayout.Button("Create New"))
+        {
+            creator.CreatePath();
+            path = creator.path;
+            SceneView.RepaintAll();
+        }
+
+        if (GUILayout.Button("Toggle Closed"))
+        {
+            path.ToggleClosed();
+            SceneView.RepaintAll();
+        }
+    }
+
     // когда объект доступен
     void OnEnable()
     {
@@ -35,7 +53,7 @@ public class PathEditor : Editor
         {
             // сохраняем объект в его текущем состоянии для CTRL + Z
             Undo.RecordObject(creator, "Add Segment");
-            // добавляем новый точкуна сплайне
+            // добавляем новый точку на сплайне
             path.AddSegment(mousePos);
         }
     }
